@@ -238,7 +238,7 @@ export default function Login() {
 
                     {/* Sign Up Link */}
                     <p className="mt-6 text-center text-sm text-gray-600">
-                        Don't have an account?{' '}
+                        Do not have an account?{' '}
                         <Link
                             href="/signup"
                             className="font-medium text-indigo-600 transition duration-300 ease-in-out 

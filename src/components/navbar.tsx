@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { FaHome, FaEnvelope, FaAnchor, FaStethoscope, FaNotesMedical, FaAdjust, FaSun, FaMoon } from "react-icons/fa";
+import { FaHome, FaEnvelope, FaAnchor, FaStethoscope, FaNotesMedical, FaSun, FaMoon } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import Link from "next/link";
 import ThemeToggle from "./themeContext";
@@ -46,30 +46,38 @@ export default function Navbar() {
     { href: "/contact", label: "Contact", icon: <FaEnvelope className="mr-2" /> }
   ];
 
-  // Theme switch logic (separate component or hook)
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ||
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-  );
-
-  const handleThemeSwitch = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-
-  };
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+ // Set the initial state for `theme` based on localStorage or system preference
+ const [theme, setTheme] = useState(() => {
+  if (typeof window !== "undefined") {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme; // Return saved theme if available
     } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      // Fallback to system preference
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-  }, [theme]);
+  }
+  return 'light'; // Default to 'light' if running on the server side
+});
 
+useEffect(() => {
+  // Apply the theme class to the document and body when the theme changes
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.body.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
+  }
+}, [theme]);
+
+const handleThemeSwitch = () => {
+  // Toggle between dark and light theme
+  const newTheme = theme === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme); // This triggers the effect to update the document and localStorage
+};
   return (
     <nav className="fixed w-11/12 top-3 z-50 bg-white dark:bg-gray-900 shadow-md rounded-full left-1/2 transform -translate-x-1/2 border border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center max-w-7xl">
@@ -148,10 +156,7 @@ export default function Navbar() {
 
 
               <button
-                onClick={() => {
-                  handleThemeSwitch();
-                  // closeMenu();
-                }}
+                onClick={handleThemeSwitch}
                 className="group flex items-center px-5 py-3 text-sm text-gray-700 hover:bg-blue-50 dark:text-gray-200 dark:hover:bg-blue-950 transition-colors w-full text-left">
                 <div className="flex items-center space-x-3">
                   {theme === 'dark' ? <FaSun /> : <FaMoon />} {/* Render sun for dark theme, moon for light theme */}
@@ -170,7 +175,7 @@ export default function Navbar() {
                   Book Appointment
                 </Link>
               </div>
-              
+
             </div>
           </div>
         )}

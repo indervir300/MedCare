@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { FaUser, FaEnvelope, FaPhone, FaClipboardList, FaCalendarAlt, FaClock, FaStickyNote } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPhone, FaClipboardList, FaCalendarAlt, FaClock } from 'react-icons/fa';
 import { FaCalendarCheck } from 'react-icons/fa6';
 
 // Define the shape of the form data

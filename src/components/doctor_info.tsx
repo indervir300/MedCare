@@ -2,7 +2,6 @@ import React from 'react';
 import {
     FaStethoscope,
     FaHandsHelping,
-    FaNotesMedical,
     FaPlusCircle,
     FaHeartbeat
 } from 'react-icons/fa';

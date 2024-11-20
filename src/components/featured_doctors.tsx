@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaCheckCircle, FaEnvelope, FaGraduationCap, FaMedal, FaStethoscope, FaUserMd } from 'react-icons/fa';
+import { FaGraduationCap, FaMedal, FaStethoscope, FaUserMd } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import 'swiper/css';
